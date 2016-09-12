@@ -1,0 +1,46 @@
+<!--
+If you look a this design for the first time it can be a little overwhelming but in fact it's quite simple.
+Using *_IGNORE ignores everything inside the given template. It only has no name when using it at the root level.
+Using *_TEMPLATE you can setup a part which you want a sub template so you can reuse that template over and over again.
+The AS command inside BEGIN_IGNORE tells the Template class to replace that whole part with a variable, which in turn
+ then can be replaced with content.
+-->
+<!DOCTYPE html>
+<html lang="@-{lang}-@">
+<head>
+    <meta charset="UTF-8" />
+    <title>@-{title}-@</title>
+    <!--@@ BEGIN_IGNORE AS head @@-->
+
+    <!--@@ BEGIN_TEMPLATE stylesheet @@-->
+    <link rel="stylesheet" rev="stylesheet" type="text/css" href="@-{href}-@" charset="UTF-8" />
+    <!--@@ END_TEMPLATE stylesheet @@-->
+
+    <!--@@ BEGIN_TEMPLATE javascript @@-->
+    <script language="javascript" type="text/javascript" charset="UTF-8" src="@-{src}-@"></script>
+    <!--@@ END_TEMPLATE javascript @@-->
+
+    <!--@@ END_IGNORE @@-->
+</head>
+<body>
+    <!--@@ BEGIN_IGNORE AS body @@-->
+
+    <!--@@ BEGIN_TEMPLATE table @@-->
+    <table cellpadding="0" cellspacing="0">
+        <!--@@ BEGIN_IGNORE table AS rows @@-->
+
+        <!--@@ BEGIN_TEMPLATE row @@-->
+        <tr>
+            <td>@-{cell}-@</td>
+            <td>@-{cell}-@</td>
+            <td>@-{cell2}-@</td>
+        </tr>
+        <!--@@ END_TEMPLATE row @@-->
+
+        <!--@@ END_IGNORE table @@-->
+    </table>
+    <!--@@ END_TEMPLATE table @@-->
+
+    <!--@@ END_IGNORE @@-->
+</body>
+</html>

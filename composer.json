@@ -1,0 +1,20 @@
+{
+  "name": "gdwebs/template",
+  "description": "A dynamic template class to use with any file type.",
+  "authors": [
+    {
+      "name": "Geoffrey Dijkstra",
+      "email": "info@gdwebs.nl",
+      "homepage": "http://www.gdwebs.nl",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "PHP" : ">=5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "gdwebs\\template\\": "src/"
+    }
+  }
+}
