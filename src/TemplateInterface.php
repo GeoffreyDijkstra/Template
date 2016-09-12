@@ -15,7 +15,7 @@ interface TemplateInterface
      * @param string $fileOrString
      * @param string $name
      */
-    public function __construct($fileOrString, $name = '');
+    public function __construct(string $fileOrString, string $name = '');
 
     /**
      * Loads the current template string or reads it from a file.
@@ -24,7 +24,7 @@ interface TemplateInterface
      *
      * @return TemplateInterface
      */
-    public function load($fileOrString);
+    public function load(string $fileOrString): TemplateInterface;
 
     /**
      * Sets the value of a template variable.
@@ -34,7 +34,7 @@ interface TemplateInterface
      *
      * @return TemplateInterface
      */
-    public function setVariable($name, $value);
+    public function setVariable(string $name, string $value): TemplateInterface;
 
     /**
      * Gets the value of a template variable.
@@ -43,7 +43,7 @@ interface TemplateInterface
      *
      * @return string
      */
-    public function getVariable($name);
+    public function getVariable(string $name): string;
 
     /**
      * Gets a sub template from the current template.
@@ -52,19 +52,19 @@ interface TemplateInterface
      *
      * @return TemplateInterface
      */
-    public function getSubTemplate($name);
+    public function getSubTemplate(string $name): TemplateInterface;
 
     /**
      * Converts $this back to a string.
      *
      * @return string
      */
-    public function __toString();
+    public function __toString(): string;
 
     /**
      * Converts $this back to a string.
      *
      * @return string
      */
-    public function render();
+    public function render(): string;
 }

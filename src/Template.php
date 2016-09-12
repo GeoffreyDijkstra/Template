@@ -84,28 +84,9 @@ class Template implements TemplateInterface
      *
      * @param string $fileOrString
      * @param string $name
-     *
-     * @throws TemplateException
      */
-    public function __construct($fileOrString, $name = '')
+    public function __construct(string $fileOrString, string $name = '')
     {
-        if (!is_string($fileOrString)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($fileOrString)
-                )
-            );
-        }
-        if (!is_string($name)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($name)
-                )
-            );
-        }
-
         $this->name = $name;
         $this->load($fileOrString);
     }
@@ -116,19 +97,9 @@ class Template implements TemplateInterface
      * @param string $fileOrString
      *
      * @return TemplateInterface
-     * @throws TemplateException
      */
-    public function load($fileOrString)
+    public function load(string $fileOrString): TemplateInterface
     {
-        if (!is_string($fileOrString)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($fileOrString)
-                )
-            );
-        }
-
         if (file_exists($fileOrString)) {
             $fileOrString = file_get_contents($fileOrString);
         }
@@ -143,20 +114,9 @@ class Template implements TemplateInterface
      * Read the ignore block.
      *
      * @param string $templateString
-     *
-     * @throws TemplateException
      */
-    private function readIgnoreBlock($templateString)
+    private function readIgnoreBlock(string $templateString)
     {
-        if (!is_string($templateString)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($templateString)
-                )
-            );
-        }
-
         $templateName = '';
         if ($this->name !== '') {
             $templateName = sprintf(
@@ -203,20 +163,9 @@ class Template implements TemplateInterface
      * Read the template block.
      *
      * @param string $string
-     *
-     * @throws TemplateException
      */
-    private function readTemplateBlock($string)
+    private function readTemplateBlock(string $string)
     {
-        if (!is_string($string)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($string)
-                )
-            );
-        }
-
         $expression = sprintf(
             '/%1$s\s+%2$s.*?%3$s.*?%1$s\s+%4$s.*?%3$s/s',
             preg_quote(static::COMMAND_START),
@@ -274,28 +223,11 @@ class Template implements TemplateInterface
      * @param string $name
      * @param string $value
      *
-     * @throws TemplateException
+     * @throws TemplateException When given variable does not exists.
      * @return TemplateInterface
      */
-    public function setVariable($name, $value)
+    public function setVariable(string $name, string $value): TemplateInterface
     {
-        if (!is_string($name)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($name)
-                )
-            );
-        }
-        if (!is_string($value)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($value)
-                )
-            );
-        }
-
         if (!in_array($name, $this->vars)) {
             throw new TemplateException(
                 sprintf(
@@ -316,19 +248,10 @@ class Template implements TemplateInterface
      * @param string $name
      *
      * @return string
-     * @throws TemplateException
+     * @throws TemplateException When given variable does not exists.
      */
-    public function getVariable($name)
+    public function getVariable(string $name): string
     {
-        if (!is_string($name)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($name)
-                )
-            );
-        }
-
         if (!in_array($name, $this->vars)) {
             throw new TemplateException(
                 sprintf(
@@ -347,19 +270,10 @@ class Template implements TemplateInterface
      * @param string $name
      *
      * @return TemplateInterface
-     * @throws TemplateException
+     * @throws TemplateException When the sub template does not exists.
      */
-    public function getSubTemplate($name)
+    public function getSubTemplate(string $name): TemplateInterface
     {
-        if (!is_string($name)) {
-            throw new TemplateException(
-                sprintf(
-                    'Expecting type string but got type "%s"!',
-                    gettype($name)
-                )
-            );
-        }
-
         if (!array_key_exists($name, $this->templates)) {
             throw new TemplateException(
                 sprintf(
@@ -377,7 +291,7 @@ class Template implements TemplateInterface
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->render();
     }
@@ -387,7 +301,7 @@ class Template implements TemplateInterface
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $string = $this->cleanTemplate;
 
