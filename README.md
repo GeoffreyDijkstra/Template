@@ -1,10 +1,11 @@
+[![Packagist](https://img.shields.io/packagist/l/gdwebs/template.svg?maxAge=2592000)](LICENSE.md)
+[![GitHub release](https://img.shields.io/github/release/GeoffreyDijkstra/template.svg?maxAge=86400)](https://github.com/GeoffreyDijkstra/NNTP-Protocol/releases)
+[![Packagist](https://img.shields.io/packagist/dd/gdwebs/nntp.svg?maxAge=86400)](https://packagist.org/packages/gdwebs/template)
+
 # Template
 A template system which can be used with any file type.
 It's created in a way that will force you to keep your template and code seperated.
 See the example below for a demo.
-
-# License
-MIT, see: [License](LICENSE.md).
 
 ##Installation
 This package can be installed through composer by requiring `gdwebs\template`.
