@@ -1,6 +1,6 @@
 [![Packagist](https://img.shields.io/packagist/l/gdwebs/template.svg?maxAge=2592000)](LICENSE.md)
-[![GitHub release](https://img.shields.io/github/release/GeoffreyDijkstra/template.svg?maxAge=86400)](https://github.com/GeoffreyDijkstra/NNTP-Protocol/releases)
-[![Packagist](https://img.shields.io/packagist/dd/gdwebs/nntp.svg?maxAge=86400)](https://packagist.org/packages/gdwebs/template)
+[![GitHub release](https://img.shields.io/github/release/GeoffreyDijkstra/template.svg?maxAge=86400)](https://github.com/GeoffreyDijkstra/template/releases)
+[![Packagist](https://img.shields.io/packagist/dd/gdwebs/template.svg?maxAge=86400)](https://packagist.org/packages/gdwebs/template)
 
 # Template
 A template system which can be used with any file type.
