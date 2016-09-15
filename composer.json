@@ -1,6 +1,7 @@
 {
   "name": "gdwebs/template",
   "description": "A dynamic template class to use with any file type.",
+  "license": "MIT",
   "authors": [
     {
       "name": "Geoffrey Dijkstra",
