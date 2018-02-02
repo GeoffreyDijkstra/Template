@@ -1,6 +1,6 @@
 <?php
 
-namespace gdwebs\template;
+namespace devorto\template;
 
 /**
  * Convert any file to a template using a specific structure.

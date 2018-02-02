@@ -6,7 +6,7 @@ require_once __DIR__ . '/../src/TemplateInterface.php';
 require_once __DIR__ . '/../src/Template.php';
 
 // Add use
-use gdwebs\template\Template;
+use devorto\template\Template;
 
 // Create a new instance
 $template = new Template(__DIR__ . '/example/template.html');

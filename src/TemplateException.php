@@ -1,6 +1,6 @@
 <?php
 
-namespace gdwebs\template;
+namespace devorto\template;
 
 use Exception;
 
