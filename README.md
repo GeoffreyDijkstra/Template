@@ -7,10 +7,10 @@ A template system which can be used with any file type.
 It's created in a way that will force you to keep your template and code seperated.
 See the example below for a demo.
 
-##Installation
+## Installation
 This package can be installed through composer by requiring `devorto\template`.
 
-##Issues + Pull Requests
+## Issues + Pull Requests
 For issues use the "Issues" tab or even better send a pull request to solve the issue ;)
 Note that the code should follow PSR2 standards.
 
