@@ -1,21 +1,21 @@
 {
-  "name": "gdwebs/template",
-  "description": "A dynamic template class to use with any file type.",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Geoffrey Dijkstra",
-      "email": "info@gdwebs.nl",
-      "homepage": "http://www.gdwebs.nl",
-      "role": "Developer"
+    "name": "devorto/template",
+    "description": "A templating system which can be used with any file type (html/sql/javascript etc)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Geoffrey Dijkstra",
+            "email": "info@devorto.com",
+            "homepage": "https://www.linkedin.com/in/geoffreydijkstra/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "PHP": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "devorto\\template\\": "src/"
+        }
     }
-  ],
-  "require": {
-    "PHP" : ">=7.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "gdwebs\\template\\": "src/"
-    }
-  }
 }
