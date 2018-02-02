@@ -15,4 +15,4 @@ For issues use the "Issues" tab or even better send a pull request to solve the 
 Note that the code should follow PSR2 standards.
 
 # Example
-See the [example](example) directory. 
+See the [example directory](example). 
