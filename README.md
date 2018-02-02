@@ -11,7 +11,7 @@ See the example below for a demo.
 This package can be installed through composer by requiring `devorto\template`.
 
 ## Issues + Pull Requests
-For issues use the ["Issues" tab](/issues) or even better send a pull request to solve the issue :wink:
+For issues use the "Issues" tab or even better send a pull request to solve the issue :wink:
 
 # Example
 See the [example directory](example). 
