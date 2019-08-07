@@ -1,6 +1,6 @@
 <?php
 
-namespace devorto\template;
+namespace Devorto\Template;
 
 /**
  * Convert any file to a template using a specific structure.
@@ -10,31 +10,31 @@ namespace devorto\template;
 interface TemplateInterface
 {
     /**
-     * Create a new template object.
+     * Loads the current template from a file.
      *
-     * @param string $fileOrString
-     * @param string $name
-     */
-    public function __construct(string $fileOrString, string $name = '');
-
-    /**
-     * Loads the current template string or reads it from a file.
-     *
-     * @param string $fileOrString
+     * @param string $file
      *
      * @return TemplateInterface
      */
-    public function load(string $fileOrString): TemplateInterface;
+    public function loadFromFile(string $file): TemplateInterface;
 
     /**
-     * Sets the value of a template variable.
+     * Loads the current template string.
      *
-     * @param string $name
-     * @param string $value
+     * @param string $contents
      *
      * @return TemplateInterface
      */
-    public function setVariable(string $name, string $value): TemplateInterface;
+    public function loadFromString(string $contents): TemplateInterface;
+
+    /**
+     * Checks if the template has a certain variable.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasVariable(string $name): bool;
 
     /**
      * Gets the value of a template variable.
@@ -44,6 +44,17 @@ interface TemplateInterface
      * @return string
      */
     public function getVariable(string $name): string;
+
+    /**
+     * Sets the value of a template variable.
+     *
+     * @param string $name
+     * @param string $value
+     * @param bool $append
+     *
+     * @return TemplateInterface
+     */
+    public function setVariable(string $name, string $value, bool $append = false): TemplateInterface;
 
     /**
      * Gets a sub template from the current template.

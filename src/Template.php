@@ -1,11 +1,14 @@
 <?php
 
-namespace devorto\template;
+namespace Devorto\Template;
+
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Convert any file to a template using a specific structure.
  *
- * @package gdwebs\template
+ * @package Devorto\Template
  */
 class Template implements TemplateInterface
 {
@@ -57,54 +60,56 @@ class Template implements TemplateInterface
     /**
      * @var string
      */
-    private $cleanTemplate = '';
+    protected $cleanTemplate = '';
 
     /**
      * @var string[]
      */
-    private $vars = [];
+    protected $vars = [];
 
     /**
      * @var TemplateInterface[]
      */
-    private $templates = [];
+    protected $templates = [];
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $name = '';
+    protected $name;
 
     /**
-     * @var string[]
-     */
-    private $values = [];
-
-    /**
-     * Create a new template object.
+     * Loads the current template from a file.
      *
-     * @param string $fileOrString
-     * @param string $name
-     */
-    public function __construct(string $fileOrString, string $name = '')
-    {
-        $this->name = $name;
-        $this->load($fileOrString);
-    }
-
-    /**
-     * Loads the current template string or reads it from a file.
-     *
-     * @param string $fileOrString
+     * @param string $file
      *
      * @return TemplateInterface
      */
-    public function load(string $fileOrString): TemplateInterface
+    public function loadFromFile(string $file): TemplateInterface
     {
-        if (file_exists($fileOrString)) {
-            $fileOrString = file_get_contents($fileOrString);
+        // To prevent file_exists from dieing when string accidentally contains a space or newline character.
+        $file = trim($file);
+
+        if (empty($file) || !file_exists($file)) {
+            throw new InvalidArgumentException(sprintf('File "%s" not found.', $file));
         }
 
-        $this->readIgnoreBlock($fileOrString);
+        return $this->loadFromString(file_get_contents($file));
+    }
+
+    /**
+     * Loads the current template string.
+     *
+     * @param string $contents
+     *
+     * @return TemplateInterface
+     */
+    public function loadFromString(string $contents): TemplateInterface
+    {
+        if (empty(trim($contents))) {
+            throw new InvalidArgumentException('Cannot parse empty template content.');
+        }
+
+        $this->readIgnoreBlock($contents);
         $this->readTemplateVars();
 
         return $this;
@@ -115,10 +120,10 @@ class Template implements TemplateInterface
      *
      * @param string $templateString
      */
-    private function readIgnoreBlock(string $templateString)
+    protected function readIgnoreBlock(string $templateString)
     {
         $templateName = '';
-        if ($this->name !== '') {
+        if (!empty($this->name)) {
             $templateName = sprintf(
                 '\s+%s',
                 preg_quote($this->name)
@@ -164,7 +169,7 @@ class Template implements TemplateInterface
      *
      * @param string $string
      */
-    private function readTemplateBlock(string $string)
+    protected function readTemplateBlock(string $string)
     {
         $expression = sprintf(
             '/%1$s\s+%2$s.*?%3$s.*?%1$s\s+%4$s.*?%3$s/s',
@@ -195,14 +200,17 @@ class Template implements TemplateInterface
             );
 
             preg_match($expression, $string, $template);
-            $this->templates[$name] = new static($template[1], $name);
+
+            $self = new static();
+            $self->name = $name;
+            $this->templates[$name] = $self->loadFromString($template[1]);
         }
     }
 
     /**
      * Read the template variables.
      */
-    private function readTemplateVars()
+    protected function readTemplateVars()
     {
         $this->vars = [];
         $expression = sprintf(
@@ -213,33 +221,20 @@ class Template implements TemplateInterface
 
         preg_match_all($expression, $this->cleanTemplate, $matches);
         foreach ($matches[1] as $var) {
-            $this->vars[] = $var;
+            $this->vars[$var] = null;
         }
     }
 
     /**
-     * Sets the value of a template variable.
+     * Checks if the template has a certain variable.
      *
      * @param string $name
-     * @param string $value
      *
-     * @throws TemplateException When given variable does not exists.
-     * @return TemplateInterface
+     * @return bool
      */
-    public function setVariable(string $name, string $value): TemplateInterface
+    public function hasVariable(string $name): bool
     {
-        if (!in_array($name, $this->vars)) {
-            throw new TemplateException(
-                sprintf(
-                    'Unknown variable "%s"!',
-                    $name
-                )
-            );
-        }
-
-        $this->values[$name] = (string)$value;
-
-        return $this;
+        return array_key_exists($name, $this->vars);
     }
 
     /**
@@ -248,20 +243,38 @@ class Template implements TemplateInterface
      * @param string $name
      *
      * @return string
-     * @throws TemplateException When given variable does not exists.
      */
     public function getVariable(string $name): string
     {
-        if (!in_array($name, $this->vars)) {
-            throw new TemplateException(
-                sprintf(
-                    'Unknown variable "%s"!',
-                    $name
-                )
-            );
+        if (!array_key_exists($name, $this->vars)) {
+            throw new InvalidArgumentException(sprintf('Template does not contain variable "%s".', $name));
         }
 
-        return $this->values[$name];
+        return $this->vars[$name];
+    }
+
+    /**
+     * Sets the value of a template variable.
+     *
+     * @param string $name
+     * @param string $value
+     * @param bool $append
+     *
+     * @return TemplateInterface
+     */
+    public function setVariable(string $name, string $value, bool $append = false): TemplateInterface
+    {
+        if (!array_key_exists($name, $this->vars)) {
+            throw new InvalidArgumentException(sprintf('Template does not contain variable "%s".', $name));
+        }
+
+        if ($append) {
+            $this->vars[$name] .= $value;
+        } else {
+            $this->vars[$name] = $value;
+        }
+
+        return $this;
     }
 
     /**
@@ -270,17 +283,11 @@ class Template implements TemplateInterface
      * @param string $name
      *
      * @return TemplateInterface
-     * @throws TemplateException When the sub template does not exists.
      */
     public function getSubTemplate(string $name): TemplateInterface
     {
         if (!array_key_exists($name, $this->templates)) {
-            throw new TemplateException(
-                sprintf(
-                    'Sub template "%s" does not exists!',
-                    $name
-                )
-            );
+            throw new InvalidArgumentException(sprintf('Sub template "%s" does not exists.', $name));
         }
 
         return $this->templates[$name];
@@ -305,14 +312,16 @@ class Template implements TemplateInterface
     {
         $string = $this->cleanTemplate;
 
-        foreach ($this->vars as $name) {
-            if (array_key_exists($name, $this->values)) {
-                $string = str_replace(
-                    static::VARIABLE_START . $name . static::VARIABLE_END,
-                    $this->values[$name],
-                    $string
-                );
+        foreach ($this->vars as $name => $value) {
+            if ($value === null) {
+                throw new RuntimeException(sprintf('No value set for template variable "%s".', $name));
             }
+
+            $string = str_replace(
+                static::VARIABLE_START . $name . static::VARIABLE_END,
+                $value,
+                $string
+            );
         }
 
         return $string;

@@ -13,11 +13,11 @@ The AS command inside BEGIN_IGNORE tells the Template class to replace that whol
     <!--@@ BEGIN_IGNORE AS head @@-->
 
     <!--@@ BEGIN_TEMPLATE stylesheet @@-->
-    <link rel="stylesheet" rev="stylesheet" type="text/css" href="@-{href}-@" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="@-{href}-@" />
     <!--@@ END_TEMPLATE stylesheet @@-->
 
     <!--@@ BEGIN_TEMPLATE javascript @@-->
-    <script language="javascript" type="text/javascript" charset="UTF-8" src="@-{src}-@"></script>
+    <script type="text/javascript" charset="UTF-8" src="@-{src}-@" defer></script>
     <!--@@ END_TEMPLATE javascript @@-->
 
     <!--@@ END_IGNORE @@-->
@@ -31,6 +31,7 @@ The AS command inside BEGIN_IGNORE tells the Template class to replace that whol
 
         <!--@@ BEGIN_TEMPLATE row @@-->
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>@-{cell}-@</td>
             <td>@-{cell}-@</td>
             <td>@-{cell2}-@</td>

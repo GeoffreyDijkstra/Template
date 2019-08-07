@@ -1,12 +1,19 @@
+<!--
+If you look a this design for the first time it can be a little overwhelming but in fact it's quite simple.
+Using *_IGNORE ignores everything inside the given template. It only has no name when using it at the root level.
+Using *_TEMPLATE you can setup a part which you want a sub template so you can reuse that template over and over again.
+The AS command inside BEGIN_IGNORE tells the Template class to replace that whole part with a variable, which in turn
+ then can be replaced with content.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Page Title</title>
     
-    <link rel="stylesheet" rev="stylesheet" type="text/css" href="path-to-stylesheet.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="path-to-stylesheet.css" />
     
-    <script language="javascript" type="text/javascript" charset="UTF-8" src="path-to-javascript.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="path-to-javascript.js" defer></script>
     
 </head>
 <body>
@@ -14,60 +21,70 @@
     <table cellpadding="0" cellspacing="0">
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
         </tr>
         
         <tr>
+            <!-- Both cell variables will be replaced -->
             <td>Contents of cell</td>
             <td>Contents of cell</td>
             <td>Contents of cell 2</td>
