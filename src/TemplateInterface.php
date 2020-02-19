@@ -49,12 +49,12 @@ interface TemplateInterface
      * Sets the value of a template variable.
      *
      * @param string $name
-     * @param string $value
+     * @param string|null $value
      * @param bool $append
      *
      * @return TemplateInterface
      */
-    public function setVariable(string $name, string $value, bool $append = false): TemplateInterface;
+    public function setVariable(string $name, ?string $value, bool $append = false): TemplateInterface;
 
     /**
      * Gets a sub template from the current template.

@@ -257,21 +257,21 @@ class Template implements TemplateInterface
      * Sets the value of a template variable.
      *
      * @param string $name
-     * @param string $value
+     * @param string|null $value
      * @param bool $append
      *
      * @return TemplateInterface
      */
-    public function setVariable(string $name, string $value, bool $append = false): TemplateInterface
+    public function setVariable(string $name, ?string $value, bool $append = false): TemplateInterface
     {
         if (!array_key_exists($name, $this->vars)) {
             throw new InvalidArgumentException(sprintf('Template does not contain variable "%s".', $name));
         }
 
         if ($append) {
-            $this->vars[$name] .= $value;
+            $this->vars[$name] .= (string)$value;
         } else {
-            $this->vars[$name] = $value;
+            $this->vars[$name] = (string)$value;
         }
 
         return $this;
