@@ -21,5 +21,6 @@
         "psr-4": {
             "Devorto\\Template\\": "src/"
         }
-    }
+    },
+    "abandoned": "twig/twig"
 }
